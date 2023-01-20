@@ -1,12 +1,17 @@
 class Solution:
     def maxOperations(self, nums: List[int], k: int) -> int:
-         c = Counter(nums)
-         output = 0
-         seen = set()
-         for x in c:
-             if x not in seen and (k-x) in c:
-                 output += min(c[x],c[k-x])
-                 seen.add(x)
-                 seen.add(k-x)
-         return output
+        nums.sort()
+        l, r=0, len(nums)-1
+        num_op = 0
+        while l < r:
+            sums = nums[l] + nums[r]
+            if sums == k:
+                num_op += 1
+                l += 1
+                r -= 1
+            elif sums < k:
+                l += 1
+            else:
+                r -= 1
+        return num_op
  
