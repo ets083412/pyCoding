@@ -1,0 +1,18 @@
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        if not position:
+            return 0
+        
+        combo = sorted(zip(position, speed), reverse=True)
+        prev = None
+        ans = 1
+        for p, s in combo:
+            if not prev:
+                prev = (target-p)/s
+            else:
+                curr = (target-p)/s
+                if curr > prev:
+                    prev = curr
+                    ans += 1
+        return ans
+               
